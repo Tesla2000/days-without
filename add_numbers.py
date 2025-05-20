@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from typing import Optional
 
 from PIL import Image, ImageDraw, ImageFont
@@ -53,7 +54,9 @@ def add_numbers_to_image(
 
 
 if __name__ == "__main__":
-    for first_number in range(7, 10):
+    outputs_path = Path("outputs")
+    outputs_path.mkdir(parents=True, exist_ok=True)
+    for first_number in range(7, 9):
         add_numbers_to_image(
             "days_without.png",
             first_number,
@@ -65,6 +68,6 @@ if __name__ == "__main__":
             100,
             None,
             10,
-            "outputs/" + str(first_number) + "_" + str(first_number + 1) + ".png",
+            f"{outputs_path}/" + str(first_number) + "_" + str(first_number + 1) + ".png",
             bold_offset=2,
         )
