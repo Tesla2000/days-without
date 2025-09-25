@@ -1,23 +1,23 @@
 import os
 from pathlib import Path
-from typing import Optional
+from typing import Optional, NamedTuple
 
 from PIL import Image, ImageDraw, ImageFont
 
 
 def add_numbers_to_image(
-    image_path: str,
-    number1: int,
-    number2: int,
-    x1: int,
-    y1: int,
-    x2: int,
-    y2: int,
-    font_size: int,
-    font_path: Optional[str] = None,
-    rotation: int = 0,
-    output_path: str = "output.png",
-    bold_offset: int = 0,
+        image_path: str,
+        number1: int,
+        number2: int,
+        x1: int,
+        y1: int,
+        x2: int,
+        y2: int,
+        font_size: int,
+        font_path: Optional[str] = None,
+        rotation: int = 0,
+        output_path: str = "output.png",
+        bold_offset: int = 0,
 ):
     number1 = str(number1)
     number2 = str(number2)
@@ -53,19 +53,44 @@ def add_numbers_to_image(
     print(f"Image saved to {output_path}")
 
 
+class Coordinates(NamedTuple):
+    x1: int
+    y1: int
+    x2: int
+    y2: int
+
+
 if __name__ == "__main__":
     outputs_path = Path("outputs")
     outputs_path.mkdir(parents=True, exist_ok=True)
-    for first_number in range(7, 9):
+
+    for first_number in range(10, 99):
+        if first_number < 10:
+            coordinates = Coordinates(
+                69,
+                69,
+                50,
+                225,
+            )
+            font_size = 100
+        else:
+            coordinates = Coordinates(
+                42,
+                69,
+                21,
+                225,
+            )
+            font_size = 90
+        x1, y1, x2, y2 = coordinates
         add_numbers_to_image(
             "days_without.png",
             first_number,
             first_number + 1,
-            69,
-            69,
-            50,
-            225,
-            100,
+            x1,
+            y1,
+            x2,
+            y2,
+            font_size,
             None,
             10,
             f"{outputs_path}/" + str(first_number) + "_" + str(first_number + 1) + ".png",
